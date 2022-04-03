@@ -1,37 +1,33 @@
 import * as esbuild from "esbuild-wasm";
 import { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { unpkgPathPlugin } from "./unpkg";
+import { unpkgPathPlugin, fetchPlugin } from "./plugins";
 
 const App = () => {
   const [input, setInput] = useState("");
   const [code, setCode] = useState("");
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const ref = useRef<any>();
+
   const onClick = async () => {
     if (!ref.current) {
       return;
     }
+
     const result = await ref.current.build({
       entryPoints: ["index.js"],
       bundle: true,
       write: false,
-      plugins: [unpkgPathPlugin()],
+      plugins: [unpkgPathPlugin(), fetchPlugin(input)],
       define: {
         "process.env.NODE_ENV": '"production"',
         global: "window",
       },
     });
+
     console.log({ result });
     setCode(result.outputFiles[0].text);
   };
-  useEffect(() => {
-    if (inputRef.current === null) {
-      return;
-    }
-    inputRef.current.focus();
-    startService();
-  }, []);
 
   const startService = async () => {
     ref.current = await esbuild.startService({
@@ -40,6 +36,14 @@ const App = () => {
     });
     console.log({ esbuildService: ref.current });
   };
+
+  useEffect(() => {
+    if (inputRef.current === null) {
+      return;
+    }
+    inputRef.current.focus();
+    startService();
+  }, []);
 
   return (
     <div>
