@@ -2,6 +2,7 @@ import * as esbuild from "esbuild-wasm";
 import { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { unpkgPathPlugin, fetchPlugin } from "./plugins";
+import CodeEditor from "./components/code-editor";
 import "./index.css";
 
 const App = () => {
@@ -75,6 +76,10 @@ const App = () => {
 
   return (
     <div>
+      <CodeEditor
+        initialValue="const hello = 'world'"
+        onChange={(value) => setInput(value)}
+      />
       <textarea
         ref={inputRef}
         value={input}
