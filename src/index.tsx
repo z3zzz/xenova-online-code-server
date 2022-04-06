@@ -1,3 +1,4 @@
+import 'bulmaswatch/superhero/bulmaswatch.min.css'
 import * as esbuild from "esbuild-wasm";
 import { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
