@@ -47,7 +47,10 @@
   },
   "devDependencies": {
     "@monaco-editor/react": "3.7.5",
+    "@types/jscodeshift": "0.7.2",
     "esbuild-wasm": "0.8.27",
-    "monaco-editor": "0.33.0"
+    "jscodeshift": "0.11.0",
+    "monaco-editor": "0.33.0",
+    "monaco-jsx-highlighter": "0.0.15"
   }
 }
