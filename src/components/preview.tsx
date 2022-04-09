@@ -3,6 +3,7 @@ import "./preview.css";
 
 interface PreviewProps {
   code: string;
+  err: string;
 }
 
 const iframeHTML = `
@@ -15,20 +16,35 @@ const iframeHTML = `
     </style>
     </head>
       <body>
-        <div id="root">abcde</div>
+        <div id="root"></div>
         <script>
+          const handleError = (err) => {
+            document.body.parentElement.style.backgroundColor = "pink"
+
+            const div = document.querySelector('#root')
+            div.innerHTML = 
+              '<div style="color: red;">' + 
+                '<h4>Runtime Error</h4>' + 
+                err + 
+              '</div>'
+
+            console.error(err)
+          }
+          
+          window.addEventListener("error", e => {
+            e.preventDefault()
+            handleError(e.message)
+          })
+
           window.addEventListener("message", e => {
             try {
-              console.log("from iframe: ", e.data)
+              if (e.data.includes("Build failed with")){
+                const errContent = e.data.split("error:")[2]
+                throw new Error(errContent) 
+              }
               eval(e.data)
             } catch (err) {
-              const div = document.querySelector('#root')
-              div.innerHTML = 
-                '<div style="color: red;">' + 
-                  '<h4>Runtime Error</h4>' + 
-                  err + 
-                '</div>'
-              console.error(err)
+              handleError(err.message)
             }
           }, false)
         </script>
@@ -36,14 +52,15 @@ const iframeHTML = `
     </html>
   `;
 
-const Preview: React.FC<PreviewProps> = ({ code }) => {
+const Preview: React.FC<PreviewProps> = ({ code, err }) => {
   const iframeRef = useRef<any>();
 
   useEffect(() => {
-    console.log({ code });
     iframeRef.current.srcdoc = iframeHTML;
-    setTimeout(iframeRef.current.contentWindow.postMessage(code, "*"), 1000);
-  }, [code]);
+    setTimeout(() => {
+      iframeRef.current.contentWindow.postMessage(code + err, "*");
+    }, 50);
+  }, [code, err]);
 
   return (
     <div className="preview-wrapper">
