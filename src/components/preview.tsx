@@ -6,12 +6,14 @@ interface PreviewProps {
 
 const iframeHTML = `
     <html>
-      <head></head>
+    <head>
+    </head>
       <body>
-        <div id="root"></div>
+        <div id="root">abcde</div>
         <script>
           window.addEventListener("message", e => {
             try {
+              console.log("from iframe: ", e.data)
               eval(e.data)
             } catch (err) {
               const div = document.querySelector('#root')
@@ -29,11 +31,12 @@ const iframeHTML = `
   `;
 
 const Preview: React.FC<PreviewProps> = ({ code }) => {
-  const iframe = useRef<any>();
+  const iframeRef = useRef<any>();
 
   useEffect(() => {
-    iframe.current.srcdoc = iframeHTML;
-    iframe.current.contentWindow.postMessage(code, "*");
+    console.log({ code });
+    iframeRef.current.srcdoc = iframeHTML;
+    setTimeout(iframeRef.current.contentWindow.postMessage(code, "*"), 1000);
   }, [code]);
 
   return (
@@ -41,7 +44,7 @@ const Preview: React.FC<PreviewProps> = ({ code }) => {
       title="test"
       sandbox="allow-scripts"
       srcDoc={iframeHTML}
-      ref={iframe}
+      ref={iframeRef}
     />
   );
 };

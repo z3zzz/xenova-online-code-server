@@ -15,6 +15,7 @@
     "bulmaswatch": "^0.8.1",
     "localforage": "^1.10.0",
     "prettier": "^2.6.2",
+    "prop-types": "^15.8.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "5.0.0",
@@ -48,9 +49,11 @@
   "devDependencies": {
     "@monaco-editor/react": "3.7.5",
     "@types/jscodeshift": "0.7.2",
+    "@types/react-resizable": "1.7.2",
     "esbuild-wasm": "0.8.27",
     "jscodeshift": "0.11.0",
     "monaco-editor": "0.33.0",
-    "monaco-jsx-highlighter": "0.0.15"
+    "monaco-jsx-highlighter": "0.0.15",
+    "react-resizable": "1.11.0"
   }
 }
