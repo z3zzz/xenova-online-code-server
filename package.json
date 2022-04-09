@@ -50,6 +50,7 @@
     "@monaco-editor/react": "3.7.5",
     "@types/jscodeshift": "0.7.2",
     "@types/react-resizable": "1.7.2",
+    "@uiw/react-md-editor": "2.1.1",
     "esbuild-wasm": "0.8.27",
     "jscodeshift": "0.11.0",
     "monaco-editor": "0.33.0",
