@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import MDEditor from "@uiw/react-md-editor";
+import "./markdown-editor.css";
 
 interface TextEditorProps {
   initialValue: string;
 }
 
-const TextEditor: React.FC<TextEditorProps> = ({ initialValue }) => {
+const MarkDownEditor: React.FC<TextEditorProps> = ({ initialValue }) => {
   const [text, setText] = useState(initialValue);
   const [isEditing, setIsEditing] = useState(false);
+  const editorRef = useRef<HTMLDivElement | null>(null);
 
   const onChange = (currentText: string | undefined) => {
     if (!currentText) {
@@ -20,12 +22,13 @@ const TextEditor: React.FC<TextEditorProps> = ({ initialValue }) => {
 
   useEffect(() => {
     const finishEdit = (e: MouseEvent) => {
-      const element = e.target as HTMLElement;
-      console.log(element.tagName);
-      if (element.tagName === "HTML") {
-        setIsEditing(false);
+      const clickedElement = e.target as HTMLElement;
+      if (editorRef.current?.contains(clickedElement)) {
+        return;
       }
+      setIsEditing(false);
     };
+
     window.addEventListener("click", finishEdit, { capture: true });
 
     return () => window.removeEventListener("click", finishEdit);
@@ -33,14 +36,20 @@ const TextEditor: React.FC<TextEditorProps> = ({ initialValue }) => {
 
   return (
     <div className="container">
-      {isEditing && <MDEditor value={text} onChange={onChange} />}
+      {isEditing && (
+        <div ref={editorRef}>
+          <MDEditor value={text} onChange={onChange} />
+        </div>
+      )}
       {!isEditing && (
-        <div onClick={onClick}>
-          <MDEditor.Markdown source={text} />
+        <div className="card">
+          <div className="card-content" onClick={onClick}>
+            <MDEditor.Markdown source={text} />
+          </div>
         </div>
       )}
     </div>
   );
 };
 
-export default TextEditor;
+export default MarkDownEditor;

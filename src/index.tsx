@@ -1,4 +1,4 @@
-import TextEditor from "./components/text-editor";
+import MarkDownEditor from "./components/markdown-editor";
 import "bulmaswatch/superhero/bulmaswatch.min.css";
 import ReactDOM from "react-dom";
 //import CodeCell from "./components/code-cell";
@@ -6,7 +6,7 @@ import ReactDOM from "react-dom";
 const App = () => {
   return (
     <div>
-      <TextEditor initialValue="**Hello World!!**" />
+      <MarkDownEditor initialValue="# Hello World!" />
     </div>
   );
 };
