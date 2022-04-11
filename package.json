@@ -11,7 +11,7 @@
     "@types/prettier": "^2.4.4",
     "@types/react": "^17.0.20",
     "@types/react-dom": "^17.0.9",
-    "axios": "^0.26.1",
+    "axios": "0.21.1",
     "bulmaswatch": "^0.8.1",
     "localforage": "^1.10.0",
     "prettier": "^2.6.2",
@@ -49,12 +49,16 @@
   "devDependencies": {
     "@monaco-editor/react": "3.7.5",
     "@types/jscodeshift": "0.7.2",
+    "@types/react-redux": "7.1.15",
     "@types/react-resizable": "1.7.2",
     "@uiw/react-md-editor": "2.1.1",
     "esbuild-wasm": "0.8.27",
     "jscodeshift": "0.11.0",
     "monaco-editor": "0.33.0",
     "monaco-jsx-highlighter": "0.0.15",
-    "react-resizable": "1.11.0"
+    "react-redux": "7.2.2",
+    "react-resizable": "1.11.0",
+    "redux": "4.0.5",
+    "redux-thunk": "2.3.0"
   }
 }
