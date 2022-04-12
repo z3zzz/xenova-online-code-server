@@ -30,7 +30,7 @@ interface UpdateCellAction {
   };
 }
 
-export type action =
+export type Action =
   | MoveCellAction
   | DeleteCellAction
   | InsertCellBeforeAction
