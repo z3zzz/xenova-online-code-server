@@ -19,64 +19,69 @@ const initialState: CellsState = {
   data: {},
 };
 
-const reducer = produce((state: CellsState = initialState, action: Action) => {
-  switch (action.type) {
-    case ActionType.UPDATE_CELL:
-      const { id, content } = action.payload;
-      state.data[id].content = content;
-      return state;
+const reducer = (
+  state: CellsState = initialState,
+  action: Action
+): CellsState => {
+  return produce(state, (draft) => {
+    switch (action.type) {
+      case ActionType.UPDATE_CELL:
+        const { id, content } = action.payload;
+        draft.data[id].content = content;
+        break;
 
-    case ActionType.DELETE_CELL:
-      delete state.data[action.payload];
-      state.order = state.order.filter((id) => id !== action.payload);
-      return state;
+      case ActionType.DELETE_CELL:
+        delete draft.data[action.payload];
+        draft.order = draft.order.filter((id) => id !== action.payload);
+        break;
 
-    case ActionType.MOVE_CELL:
-      const { direction } = action.payload;
-      const curIndex = state.order.findIndex(
-        (value) => value === action.payload.id
-      );
-      const targetIndex = direction === "up" ? curIndex - 1 : curIndex + 1;
-      const isIndexNegative = targetIndex < 0;
-      const isIndexMoreThanMaximum = targetIndex >= state.order.length;
+      case ActionType.MOVE_CELL:
+        const { direction } = action.payload;
+        const curIndex = draft.order.findIndex(
+          (value) => value === action.payload.id
+        );
+        const targetIndex = direction === "up" ? curIndex - 1 : curIndex + 1;
+        const isIndexNegative = targetIndex < 0;
+        const isIndexMoreThanMaximum = targetIndex >= draft.order.length;
 
-      if (isIndexNegative || isIndexMoreThanMaximum) {
-        return state;
-      }
+        if (isIndexNegative || isIndexMoreThanMaximum) {
+          break;
+        }
 
-      state.order.splice(targetIndex, 0, id);
-      state.order.splice(curIndex, 1);
-      return state;
+        draft.order.splice(targetIndex, 0, id);
+        draft.order.splice(curIndex, 1);
+        break;
 
-    case ActionType.INSERT_CELL_BEFORE:
-      const cell: Cell = {
-        content: "",
-        type: action.payload.type,
-        id: randomId(),
-      };
+      case ActionType.INSERT_CELL_BEFORE:
+        const cell: Cell = {
+          content: "",
+          type: action.payload.type,
+          id: randomId(),
+        };
 
-      const targetIndex_2 =
-        state.order.findIndex((value) => value === action.payload.id) - 1;
+        const targetIndex_2 =
+          draft.order.findIndex((value) => value === action.payload.id) - 1;
 
-      state.data[cell.id] = cell;
+        draft.data[cell.id] = cell;
 
-      if (targetIndex_2 === -1) {
-        state.order.unshift(cell.id);
-        return state;
-      }
+        if (targetIndex_2 === -1) {
+          draft.order.unshift(cell.id);
+          break;
+        }
 
-      if (targetIndex_2 < -1) {
-        state.order.push(cell.id);
-        return state;
-      }
+        if (targetIndex_2 < -1) {
+          draft.order.push(cell.id);
+          break;
+        }
 
-      state.order.splice(targetIndex_2, 0, cell.id);
-      return state;
+        draft.order.splice(targetIndex_2, 0, cell.id);
+        break;
 
-    default:
-      return state;
-  }
-});
+      default:
+        break;
+    }
+  });
+};
 
 const randomId = () => {
   return Math.random().toString(36).substring(2, 7);
