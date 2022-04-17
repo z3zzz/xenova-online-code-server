@@ -1,5 +1,5 @@
 import "bulmaswatch/superhero/bulmaswatch.min.css";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { store } from "./state";
 import { Provider } from "react-redux";
 import CellList from "./components/cell-list";
@@ -14,4 +14,6 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.querySelector("#root"));
+const container = document.getElementById("root");
+const root = createRoot(container!);
+root.render(<App />);
