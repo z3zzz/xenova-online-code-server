@@ -1,30 +1,61 @@
-import "./icon-button.css"
+import "./icon-button.css";
 
-type iconTypes = "up" | "down" | "x";
+type iconTypes = "up" | "down" | "x" | "+";
 
 interface IconButtonProps {
   onClick: () => void;
-  type: iconTypes;
+  icon: iconTypes;
+  buttonRound?: boolean;
+  iconSmall?: boolean;
+  extraText?: string;
 }
 
-const IconButton: React.FC<IconButtonProps> = ({ onClick, type }) => {
-  const getClassName = (type: iconTypes) => {
-    if (type === "up") {
-      return "fas fa-arrow-up";
+const IconButton: React.FC<IconButtonProps> = ({
+  onClick,
+  icon,
+  buttonRound,
+  iconSmall,
+  extraText,
+}) => {
+  const getBtnClass = () => {
+    const defaults = "button is-primary is-small";
+    let option = "";
+    if (buttonRound) {
+      option += " is-rounded";
     }
-    if (type === "down") {
-      return "fas fa-arrow-down";
+
+    return defaults + option;
+  };
+
+  const getSpanClass = () => {
+    const defaults = "icon";
+    let option = "";
+    if (iconSmall) {
+      option += " is-small";
     }
-    if (type === "x") {
-      return "fas fa-times";
+
+    return defaults + option;
+  };
+
+  const getIClass = (icon: iconTypes) => {
+    switch (icon) {
+      case "up":
+        return "fas fa-arrow-up";
+      case "down":
+        return "fas fa-arrow-down";
+      case "x":
+        return "fas fa-times";
+      case "+":
+        return "fas fa-plus";
     }
   };
 
   return (
-    <button className="button is-primary is-small" onClick={onClick}>
-      <span className="icon">
-        <i className={getClassName(type)}></i>
+    <button className={getBtnClass()} onClick={onClick}>
+      <span className={getSpanClass()}>
+        <i className={getIClass(icon)}></i>
       </span>
+      {extraText && <span>{extraText}</span>}
     </button>
   );
 };

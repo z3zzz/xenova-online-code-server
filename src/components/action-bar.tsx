@@ -19,9 +19,9 @@ const ActionBar: React.FC<ActionBarProps> = ({ id, withWrapper }) => {
   return (
     <div className={wrapperClassName}>
       <div className="action-bar">
-        <IconButton onClick={onClickUp} type="up" />
-        <IconButton onClick={onClickDown} type="down" />
-        <IconButton onClick={onClickDelete} type="x" />
+        <IconButton onClick={onClickUp} icon="up" />
+        <IconButton onClick={onClickDown} icon="down" />
+        <IconButton onClick={onClickDelete} icon="x" />
       </div>
     </div>
   );
