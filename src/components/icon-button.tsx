@@ -1,3 +1,5 @@
+import "./icon-button.css"
+
 type iconTypes = "up" | "down" | "x";
 
 interface IconButtonProps {
