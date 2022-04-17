@@ -1,4 +1,5 @@
 import { useActions } from "../hooks";
+import IconButton from "./icon-button";
 
 interface ActionBarProps {
   id: string;
@@ -13,9 +14,9 @@ const ActionBar: React.FC<ActionBarProps> = ({ id }) => {
 
   return (
     <div>
-      <button onClick={onClickUp}>Up</button>
-      <button onClick={onClickDown}>Down</button>
-      <button onClick={onClickDelete}>Delete</button>
+      <IconButton onClick={onClickUp} type="up" />
+      <IconButton onClick={onClickDown} type="down" />
+      <IconButton onClick={onClickDelete} type="x" />
     </div>
   );
 };
