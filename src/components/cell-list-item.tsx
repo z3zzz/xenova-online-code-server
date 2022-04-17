@@ -12,7 +12,7 @@ const CellListItem: React.FC<CellListItemProps> = ({ data }) => {
   const isTextCell = type === "text";
   return (
     <div>
-      {isCodeCell && <CodeCell />}
+      {isCodeCell && <CodeCell data={data} />}
       {isTextCell && <MarkDownEditor initialValue={content} />}
     </div>
   );
