@@ -11,7 +11,6 @@ interface TextEditorProps {
 const MarkDownEditor: React.FC<TextEditorProps> = ({ data }) => {
   const initialText = "Click to edit";
   const { id, content } = data;
-  console.log({ content });
   const { updateCell } = useActions();
   const [isEditing, setIsEditing] = useState(false);
   const editorRef = useRef<HTMLDivElement | null>(null);

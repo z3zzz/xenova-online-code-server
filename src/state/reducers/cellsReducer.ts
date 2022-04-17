@@ -41,15 +41,20 @@ const reducer = (
           (value) => value === action.payload.id
         );
         const targetIndex = direction === "up" ? curIndex - 1 : curIndex + 1;
+        console.log({ curIndex, targetIndex });
         const isIndexNegative = targetIndex < 0;
-        const isIndexMoreThanMaximum = targetIndex >= draft.order.length;
+        const isIndexMoreThanMaximum = targetIndex >= state.order.length;
 
         if (isIndexNegative || isIndexMoreThanMaximum) {
+          console.log({ isIndexNegative });
+          console.log({ isIndexMoreThanMaximum });
           break;
         }
 
-        draft.order.splice(targetIndex, 0, id);
-        draft.order.splice(curIndex, 1);
+        const tempId = state.order[curIndex];
+        draft.order[curIndex] = draft.order[targetIndex];
+        draft.order[targetIndex] = tempId;
+
         break;
 
       case ActionType.INSERT_CELL_BEFORE:
