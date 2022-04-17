@@ -7,13 +7,13 @@ interface CellListItemProps {
 }
 
 const CellListItem: React.FC<CellListItemProps> = ({ data }) => {
-  const { type, content } = data;
+  const { type } = data;
   const isCodeCell = type === "code";
   const isTextCell = type === "text";
   return (
     <div>
       {isCodeCell && <CodeCell data={data} />}
-      {isTextCell && <MarkDownEditor initialValue={content} />}
+      {isTextCell && <MarkDownEditor data={data} />}
     </div>
   );
 };

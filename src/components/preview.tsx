@@ -16,7 +16,7 @@ const iframeHTML = `
     </style>
     </head>
       <body>
-        <div id="root"></div>
+        <div id="root">Hello World</div>
         <script>
           const handleError = (err) => {
             document.body.parentElement.style.backgroundColor = "pink"

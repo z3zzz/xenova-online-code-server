@@ -1,21 +1,23 @@
 import { useEffect, useState, useRef } from "react";
 import MDEditor from "@uiw/react-md-editor";
 import "./markdown-editor.css";
+import { Cell } from "../state";
+import { useActions } from "../hooks";
 
 interface TextEditorProps {
-  initialValue: string;
+  data: Cell;
 }
 
-const MarkDownEditor: React.FC<TextEditorProps> = ({ initialValue }) => {
-  const [text, setText] = useState(initialValue);
+const MarkDownEditor: React.FC<TextEditorProps> = ({ data }) => {
+  const initialText = "Click to edit";
+  const { id, content } = data;
+  console.log({ content });
+  const { updateCell } = useActions();
   const [isEditing, setIsEditing] = useState(false);
   const editorRef = useRef<HTMLDivElement | null>(null);
 
   const onChange = (currentText: string | undefined) => {
-    if (!currentText) {
-      return;
-    }
-    setText(currentText);
+    updateCell(id, currentText || "");
   };
 
   const onClick = () => setIsEditing(true);
@@ -38,13 +40,13 @@ const MarkDownEditor: React.FC<TextEditorProps> = ({ initialValue }) => {
     <div className="container">
       {isEditing && (
         <div ref={editorRef}>
-          <MDEditor value={text} onChange={onChange} />
+          <MDEditor value={content} onChange={onChange} />
         </div>
       )}
       {!isEditing && (
         <div className="card">
           <div className="card-content" onClick={onClick}>
-            <MDEditor.Markdown source={text} />
+            <MDEditor.Markdown source={content || initialText} />
           </div>
         </div>
       )}

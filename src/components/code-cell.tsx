@@ -13,7 +13,7 @@ interface CodeCellProps {
 const CodeCell: React.FC<CodeCellProps> = ({ data }) => {
   const { id, content } = data;
   const initialCode =
-    "const root = document.querySelector('#root'); root.innerText = 'hello world';";
+    "const root = document.querySelector('#root'); root.innerText = 'Hello World';";
   const [code, setCode] = useState("");
   const [err, setErr] = useState("");
 
