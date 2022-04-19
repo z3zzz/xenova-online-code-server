@@ -4,6 +4,7 @@ import "./resizable.css";
 
 interface ResizableProps {
   direction: "horizontal" | "vertical";
+  children: React.ReactNode;
 }
 
 const Resizable: React.FC<ResizableProps> = ({ direction, children }) => {
