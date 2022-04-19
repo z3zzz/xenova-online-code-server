@@ -64,17 +64,13 @@ const reducer = (
           id: randomId(),
         };
 
-        const targetIndex_2 =
-          draft.order.findIndex((value) => value === action.payload.id) - 1;
+        const targetIndex_2 = draft.order.findIndex(
+          (value) => value === action.payload.id
+        );
 
         draft.data[cell.id] = cell;
 
         if (targetIndex_2 === -1) {
-          draft.order.unshift(cell.id);
-          break;
-        }
-
-        if (targetIndex_2 < -1) {
           draft.order.push(cell.id);
           break;
         }
