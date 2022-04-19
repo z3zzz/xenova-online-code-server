@@ -11,13 +11,13 @@ const CellList: React.FC = () => {
 
   return (
     <div>
+      <AddCell alwaysVisible={isNoCell} prevCellId={null} />
       {order.map((id) => (
         <Fragment key={id}>
-          <AddCell nextCellId={id} />
           <CellListItem data={data[id]} />
+          <AddCell prevCellId={id} />
         </Fragment>
       ))}
-      <AddCell alwaysVisible={isNoCell} nextCellId={null} />
     </div>
   );
 };

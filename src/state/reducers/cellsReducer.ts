@@ -78,6 +78,26 @@ const reducer = (
         draft.order.splice(targetIndex_2, 0, cell.id);
         break;
 
+      case ActionType.INSERT_CELL_AFTER:
+        const cell_2: Cell = {
+          content: "",
+          type: action.payload.type,
+          id: randomId(),
+        };
+
+        const targetIndex_3 =
+          draft.order.findIndex((value) => value === action.payload.id) + 1;
+
+        draft.data[cell_2.id] = cell_2;
+
+        if (targetIndex_3 === state.order.length) {
+          draft.order.push(cell_2.id);
+          break;
+        }
+
+        draft.order.splice(targetIndex_3, 0, cell_2.id);
+        break;
+
       default:
         break;
     }

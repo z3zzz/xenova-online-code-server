@@ -3,19 +3,19 @@ import { useActions } from "../hooks";
 import IconButton from "./icon-button";
 
 interface AddCellProps {
-  nextCellId: string | null;
+  prevCellId: string | null;
   alwaysVisible?: boolean;
 }
 
-const AddCell: React.FC<AddCellProps> = ({ nextCellId, alwaysVisible }) => {
-  const { insertCellBefore } = useActions();
+const AddCell: React.FC<AddCellProps> = ({ prevCellId, alwaysVisible }) => {
+  const { insertCellAfter } = useActions();
 
   const onClickAddCode = () => {
-    insertCellBefore(nextCellId, "code");
+    insertCellAfter(prevCellId, "code");
   };
 
   const onClickAddText = () => {
-    insertCellBefore(nextCellId, "text");
+    insertCellAfter(prevCellId, "text");
   };
 
   return (
