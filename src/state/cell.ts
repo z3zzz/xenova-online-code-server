@@ -5,6 +5,3 @@ export interface Cell {
   type: CellTypes;
   content: string;
 }
-
-export const initialCode =
-  "document.querySelector('#root').innerText = 'Hello World';";

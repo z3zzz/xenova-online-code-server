@@ -1,7 +1,7 @@
 import produce from "immer";
 import { ActionType } from "../action-types";
 import { Action } from "../actions";
-import { Cell, initialCode } from "../cell";
+import { Cell } from "../cell";
 
 interface CellsState {
   loading: boolean;
@@ -37,16 +37,17 @@ const reducer = (
 
       case ActionType.MOVE_CELL:
         const { direction } = action.payload;
-
         const curIndex = draft.order.findIndex(
           (value) => value === action.payload.id
         );
         const targetIndex = direction === "up" ? curIndex - 1 : curIndex + 1;
-
+        console.log({ curIndex, targetIndex });
         const isIndexNegative = targetIndex < 0;
         const isIndexMoreThanMaximum = targetIndex >= state.order.length;
 
         if (isIndexNegative || isIndexMoreThanMaximum) {
+          console.log({ isIndexNegative });
+          console.log({ isIndexMoreThanMaximum });
           break;
         }
 
@@ -58,7 +59,7 @@ const reducer = (
 
       case ActionType.INSERT_CELL_BEFORE:
         const cell: Cell = {
-          content: action.payload.type === "code" ? initialCode : "",
+          content: "",
           type: action.payload.type,
           id: randomId(),
         };
@@ -79,7 +80,7 @@ const reducer = (
 
       case ActionType.INSERT_CELL_AFTER:
         const cell_2: Cell = {
-          content: action.payload.type === "code" ? initialCode : "",
+          content: "",
           type: action.payload.type,
           id: randomId(),
         };

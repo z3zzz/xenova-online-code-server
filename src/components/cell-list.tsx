@@ -5,6 +5,8 @@ import AddCell from "./add-cell";
 
 const CellList: React.FC = () => {
   const { order, data } = useTypedSelector((state) => state.cells);
+  console.log({ order });
+
   const isNoCell = order.length === 0;
 
   return (

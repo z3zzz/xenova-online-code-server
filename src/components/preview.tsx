@@ -16,7 +16,7 @@ const iframeHTML = `
     </style>
     </head>
       <body>
-        <div id="root"></div>
+        <div id="root">Hello World</div>
         <script>
           const handleError = (err) => {
             document.body.parentElement.style.backgroundColor = "pink"
@@ -42,7 +42,6 @@ const iframeHTML = `
                 const errContent = e.data.split("error:")[2]
                 throw new Error(errContent) 
               }
-
               eval(e.data)
             } catch (err) {
               handleError(err.message)
