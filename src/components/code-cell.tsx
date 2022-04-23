@@ -12,13 +12,35 @@ interface CodeCellProps {
 }
 
 const CodeCell: React.FC<CodeCellProps> = ({ data }) => {
-  const { id, content } = data;
+  const { id } = data;
   const { updateCell, createBundle } = useActions();
 
   const cumulativeCode = useTypedSelector((state) => {
     const { order, data } = state.cells;
+    const defaultCode = `
+      import _React from 'react'
+      import { createRoot as _createRoot } from 'react-dom/client'
 
-    const targetCellCodes = [];
+      const _root = document.querySelector('#root');
+      
+      const show = (value) => {
+        if (typeof value === "object") {
+          console.log(value);
+
+          if (value.$$typeof && value.props) {
+            _createRoot(_root).render(value)
+            return;
+          }
+
+          _root.innerHTML = JSON.stringify(value);
+          return;
+        }
+        
+        _root.innerHTML = value;
+      }
+    `;
+
+    const targetCellCodes = [defaultCode];
     for (let cellId of order) {
       if (data[cellId].type === "text") {
         continue;

@@ -6,5 +6,4 @@ export interface Cell {
   content: string;
 }
 
-export const initialCode =
-  "document.querySelector('#root').innerText = 'Hello World';";
+export const initialCode = "show(<h1>Hello World</h1>);";
