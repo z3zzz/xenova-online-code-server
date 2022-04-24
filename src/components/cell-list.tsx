@@ -1,12 +1,18 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import CellListItem from "./cell-list-item";
-import { useTypedSelector } from "../hooks/use-typed-selector";
+import { useTypedSelector, useActions } from "../hooks";
 import AddCell from "./add-cell";
 import "./cell-list.css";
 
 const CellList: React.FC = () => {
   const { order, data } = useTypedSelector((state) => state.cells);
   const hasNoCell = order.length === 0;
+
+  const { fetchCells } = useActions();
+
+  useEffect(() => {
+    fetchCells();
+  }, [fetchCells]);
 
   return (
     <div className="cell-list">

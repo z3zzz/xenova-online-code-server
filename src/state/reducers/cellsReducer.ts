@@ -97,6 +97,32 @@ const reducer = (
         draft.order.splice(targetIndex_3, 0, cell_2.id);
         break;
 
+      case ActionType.FETCH_CELLS_START:
+        draft.loading = true;
+        draft.error = null;
+
+        break;
+
+      case ActionType.FETCH_CELLS_COMPLETE:
+        draft.order = action.payload.map((cell) => cell.id);
+        draft.data = action.payload.reduce(
+          (prev, cell) => ({ ...prev, [cell.id]: cell }),
+          {}
+        );
+
+        break;
+
+      case ActionType.FETCH_CELLS_ERROR:
+        draft.loading = false;
+        draft.error = action.payload;
+
+        break;
+
+      case ActionType.SAVE_CELLS_ERROR:
+        draft.error = action.payload;
+
+        break;
+
       default:
         break;
     }
