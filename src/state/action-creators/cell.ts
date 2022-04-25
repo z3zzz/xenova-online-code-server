@@ -98,7 +98,7 @@ export const saveCells = () => {
     const cells = order.map((cellId) => data[cellId]);
 
     try {
-      await Api.post("cells", { cells });
+      await Api.post("api/cells", { cells });
     } catch (err: any) {
       dispatch({
         type: ActionType.SAVE_CELLS_ERROR,
